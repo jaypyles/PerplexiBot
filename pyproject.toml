@@ -1,0 +1,20 @@
+[project]
+name = "PerplexiBot"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Jayden Pyles", email = "jpylesbusiness@gmail.com"},
+]
+dependencies = [
+    "py-cord>=2.4.1",
+    "python-dotenv>=1.0.1",
+    "aiohttp>=3.9.4",
+    "requests>=2.31.0",
+]
+requires-python = "==3.10.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false

@@ -1,0 +1,48 @@
+version: "3"
+services:
+  perplexibot:
+    container_name: perplexibot
+    build:
+      context: "./"
+    networks:
+      - search
+  backend:
+    image: jpyles0524/freeaskinternetapi:latest
+    container_name: searchbackend
+    depends_on:
+      - llm-freegpt35
+    ports:
+      - 8888:8000
+    restart: on-failure
+    networks:
+      - search
+  llm-freegpt35:
+    container_name: llm-freegpt35
+    image: missuo/freegpt35:latest
+    restart: always
+    networks:
+      - search
+  searxng:
+    image: docker.io/searxng/searxng:latest
+    volumes:
+      - ./searxng:/etc/searxng:rw
+    environment:
+      - SEARXNG_BASE_URL=https://${SEARXNG_HOSTNAME:-localhost}/
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+    restart: always
+    networks:
+      - search
+networks:
+  search:
+    external:
+      name: search
