@@ -1,12 +1,13 @@
 # STL
-import logging
 import os
+import logging
 
 # PDM
 import discord
-from discord.ext import commands
 from dotenv import load_dotenv
+from discord.ext import commands
 
+# LOCAL
 from perplexibot.cogs.Searchxng import SearchCommands
 
 logging.basicConfig(level=logging.INFO)

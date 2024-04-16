@@ -1,9 +1,14 @@
+# STL
+import logging
+
 # PDM
 import discord
 from discord.ext import commands
 
 # LOCAL
-from perplexibot.utils.AI import call_research, call_search
+from perplexibot.utils.AI import call_search, call_research
+
+LOG = logging.getLogger(__name__)
 
 
 class SearchCommands(commands.Cog):
@@ -35,4 +40,10 @@ class SearchCommands(commands.Cog):
     async def research(self, ctx, message_content: str):
         await ctx.respond("Researching...", ephemeral=True)
         response = call_research(message_content)
-        await ctx.respond(response)
+        try:
+            await ctx.respond(response)
+        except discord.DiscordException as e:
+            LOG.error(f"Response was too long (over 2000 tokens): {e}")
+            await ctx.respond(
+                "Response was too long (over 2000 tokens). Try again.", ephemeral=True
+            )
