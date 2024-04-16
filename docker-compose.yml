@@ -2,9 +2,6 @@ version: "3"
 services:
   perplexibot:
     container_name: perplexibot
-    environment:
-      - GPT_MODEL=ollama
-      - OLLAMA_MODEL=orca-mini
     build:
       context: "./"
     networks:
@@ -14,8 +11,6 @@ services:
     container_name: searchbackend
     depends_on:
       - llm-freegpt35
-    environment:
-      - OLLAMA_HOST=http://ollama:11434
     restart: on-failure
     networks:
       - search
@@ -45,16 +40,16 @@ services:
     restart: always
     networks:
       - search
-  ollama:
-    image: ollama/ollama:latest
-    ports:
-      - 11434:11434
-    container_name: ollama
-    pull_policy: always
-    tty: true
-    restart: always
-    networks:
-      - search
+      # ollama:
+      #   image: ollama/ollama:latest
+      #   ports:
+      #     - 11434:11434
+      #   container_name: ollama
+      #   pull_policy: always
+      #   tty: true
+      #   restart: always
+      #   networks:
+      #     - search
 networks:
   search:
     external:
