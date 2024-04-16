@@ -36,6 +36,7 @@ def call_research(prompt: str):
     body = {
         "model": "gpt3.5",
         "messages": [{"role": "user", "content": prompt}],
+        "discord_friendly": True,
     }
 
     url = "http://searchbackend:8000/v1/chat/completions"
