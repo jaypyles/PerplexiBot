@@ -1,4 +1,5 @@
 # STL
+import os
 import json
 import logging
 
@@ -7,6 +8,9 @@ import aiohttp
 import requests
 
 LOG = logging.getLogger(__name__)
+
+MODEL = os.getenv("GPT_MODEL", "gpt3.5")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL")
 
 
 async def call_search(prompt: str) -> dict:
@@ -36,10 +40,13 @@ async def call_search(prompt: str) -> dict:
 
 def call_research(prompt: str):
     body = {
-        "model": "gpt3.5",
+        "model": MODEL,
         "messages": [{"role": "user", "content": prompt}],
         "discord_friendly": True,
     }
+
+    if OLLAMA_MODEL:
+        body["ollama_model"] = OLLAMA_MODEL
 
     url = "http://searchbackend:8000/v1/chat/completions"
     total_content = ""

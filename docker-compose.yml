@@ -2,27 +2,29 @@ version: "3"
 services:
   perplexibot:
     container_name: perplexibot
+    environment:
+      - GPT_MODEL=ollama
+      - OLLAMA_MODEL=orca-mini
     build:
       context: "./"
     networks:
       - search
-
   backend:
     image: jpyles0524/freeaskinternetapi:latest
     container_name: searchbackend
     depends_on:
       - llm-freegpt35
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
     restart: on-failure
     networks:
       - search
-
   llm-freegpt35:
     container_name: llm-freegpt35
     image: missuo/freegpt35:latest
     restart: always
     networks:
       - search
-
   searxng:
     image: docker.io/searxng/searxng:latest
     volumes:
@@ -40,6 +42,16 @@ services:
       options:
         max-size: "1m"
         max-file: "1"
+    restart: always
+    networks:
+      - search
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - 11434:11434
+    container_name: ollama
+    pull_policy: always
+    tty: true
     restart: always
     networks:
       - search
