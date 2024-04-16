@@ -8,6 +8,7 @@ Based on https://perplexity.ai
 ## Deployment Guide
 
 - Create a Discord bot at https://discord.com/developers/
+- Give your Bot intents to read messages and create messages 
 
 ```
 git clone https://github.com/jaypyles/PerplexiBot.git
