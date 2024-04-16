@@ -2,7 +2,7 @@ general:
   # Debug mode, only for development. Is overwritten by ${SEARXNG_DEBUG}
   debug: false
   # displayed name
-  instance_name: "searxng"
+  instance_name: "perplexibot"
   # For example: https://example.com/privacy
   privacypolicy_url: false
   # use true to use your own donation page written in searx/info/en/donate.md
@@ -34,57 +34,36 @@ search:
   # by default.
   autocomplete: ""
   # minimun characters to type before autocompleter starts
-  autocomplete_min: 4
   # Default search language - leave blank to detect from browser information or
   # use codes from 'languages.py'
   default_lang: "auto"
-  # max_page: 0  # if engine supports paging, 0 means unlimited numbers of pages
-  # Available languages
-  # languages:
-  #   - all
-  #   - en
-  #   - en-US
-  #   - de
-  #   - it-IT
-  #   - fr
-  #   - fr-BE
-  # ban time in seconds after engine errors
-  ban_time_on_fail: 5
-  # max ban time in seconds after engine errors
+  ban_time_on_fail: 1
   max_ban_time_on_fail: 120
   suspended_times:
-    # Engine suspension time after error (in seconds; set to 0 to disable)
-    # For error "Access denied" and "HTTP error [402, 403]"
     SearxEngineAccessDenied: 86400
-    # For error "CAPTCHA"
     SearxEngineCaptcha: 86400
-    # For error "Too many request" and "HTTP error 429"
     SearxEngineTooManyRequests: 3600
-    # Cloudflare CAPTCHA
     cf_SearxEngineCaptcha: 1296000
     cf_SearxEngineAccessDenied: 86400
-    # ReCAPTCHA
     recaptcha_SearxEngineCaptcha: 604800
-
-  # remove format to deny access, use lower case.
-  # formats: [html, csv, json, rss]
   formats:
     - html
+    - json
 
 server:
   # Is overwritten by ${SEARXNG_PORT} and ${SEARXNG_BIND_ADDRESS}
-  port: 8888
-  bind_address: "127.0.0.1"
+  port: 8080
+  bind_address: "0.0.0.0"
   # public URL of the instance, to ensure correct inbound links. Is overwritten
   # by ${SEARXNG_URL}.
-  base_url: /  # "http://example.com/location"
-  limiter: false  # rate limit the number of request on the instance, block some bots
-  public_instance: false  # enable features designed only for public instances
+  base_url: http://localhost:/ # "http://example.com/location"
+  limiter: false # rate limit the number of request on the instance, block some bots
+  public_instance: false # enable features designed only for public instances
 
   # If your instance owns a /etc/searxng/settings.yml file, then set the following
   # values there.
 
-  secret_key: "3db280e9dafece32b9b5aa6ae782f4d7ff03531bcf3d51625f8b658c5107b6c2"  # Is overwritten by ${SEARXNG_SECRET}
+  secret_key: "f884dadd9e6b23ea6c073a031b18daa0288ff1d82a1c5514089f0ecb32ac7a54" # Is overwritten by ${SEARXNG_SECRET}
   # Proxying image results through searx
   image_proxy: false
   # 1.0 and 1.1 are supported
@@ -264,17 +243,17 @@ checker:
         lang: en
       result_container:
         - not_empty
-        - ['one_title_contains', 'citizen kane']
+        - ["one_title_contains", "citizen kane"]
       test:
         - unique_results
 
     android: &test_android
       matrix:
-        query: ['android']
-        lang: ['en', 'de', 'fr', 'zh-CN']
+        query: ["android"]
+        lang: ["en", "de", "fr", "zh-CN"]
       result_container:
         - not_empty
-        - ['one_title_contains', 'google']
+        - ["one_title_contains", "google"]
       test:
         - unique_results
 
@@ -384,7 +363,7 @@ engines:
     shortcut: wp
     # add "list" to the array to get results in the results list
     display_type: ["infobox"]
-    base_url: 'https://{language}.wikipedia.org/'
+    base_url: "https://{language}.wikipedia.org/"
     categories: [general]
 
   - name: bilibili
@@ -530,7 +509,7 @@ engines:
     categories: general
     disabled: true
     paging: true
-    lang_all: ''
+    lang_all: ""
     search_url: https://curlie.org/search?q={query}&lang={lang}&start={pageno}&stime=92452189
     page_size: 20
     results_xpath: //div[@id="site-list-content"]/div[@class="site-item"]
@@ -572,7 +551,7 @@ engines:
           lang: en
         result_container:
           - not_empty
-          - ['one_title_contains', 'Berlin Hauptbahnhof']
+          - ["one_title_contains", "Berlin Hauptbahnhof"]
         test:
           - unique_results
 
@@ -1270,11 +1249,6 @@ engines:
       require_api_key: false
       results: JSON
 
-  - name: openmeteo
-    engine: open_meteo
-    shortcut: om
-    disabled: true
-
   # - name: opensemanticsearch
   #   engine: opensemantic
   #   shortcut: oss
@@ -1374,10 +1348,10 @@ engines:
     disabled: true
     inactive: true
     pixiv_image_proxies:
-      - https://pximg.example.org
+      - pximg.example.org
       # A proxy is required to load the images. Hosting an image proxy server
       # for Pixiv:
-      #    --> https://pixivfe.pages.dev/hosting-image-proxy-server/
+      #    --> https://codeberg.org/VnPower/PixivFE/wiki/Hosting-an-image-proxy-server-for-Pixiv
       # Proxies from public instances.  Ask the public instances owners if they
       # agree to receive traffic from SearXNG!
       #    --> https://codeberg.org/VnPower/PixivFE#instances
@@ -1564,13 +1538,13 @@ engines:
   - name: stackoverflow
     engine: stackexchange
     shortcut: st
-    api_site: 'stackoverflow'
+    api_site: "stackoverflow"
     categories: [it, q&a]
 
   - name: askubuntu
     engine: stackexchange
     shortcut: ubuntu
-    api_site: 'askubuntu'
+    api_site: "askubuntu"
     categories: [it, q&a]
 
   - name: internetarchivescholar
@@ -1581,7 +1555,7 @@ engines:
   - name: superuser
     engine: stackexchange
     shortcut: su
-    api_site: 'superuser'
+    api_site: "superuser"
     categories: [it, q&a]
 
   - name: searchcode code
@@ -1694,8 +1668,7 @@ engines:
   - name: torch
     engine: xpath
     paging: true
-    search_url:
-      http://xmh57jrknzkhv6y3ls3ubitzfqnkrwxhopf5aygthi7d6rplyvk3noyd.onion/cgi-bin/omega/omega?P={query}&DEFAULTOP=and
+    search_url: http://xmh57jrknzkhv6y3ls3ubitzfqnkrwxhopf5aygthi7d6rplyvk3noyd.onion/cgi-bin/omega/omega?P={query}&DEFAULTOP=and
     results_xpath: //table//tr
     url_xpath: ./td[2]/a
     title_xpath: ./td[2]/b
@@ -1868,7 +1841,7 @@ engines:
           lang: en
         result_container:
           - not_empty
-          - ['one_title_contains', 'Tardigrada']
+          - ["one_title_contains", "Tardigrada"]
         test:
           - unique_results
 
@@ -2113,7 +2086,7 @@ engines:
     no_result_for_http_status: [404]
     about:
       website: https://www.woxikon.de/
-      wikidata_id:  # No Wikidata ID
+      wikidata_id: # No Wikidata ID
       use_official_api: false
       require_api_key: false
       results: HTML
@@ -2377,11 +2350,11 @@ engines:
 #        keys: ['line']
 
 doi_resolvers:
-  oadoi.org: 'https://oadoi.org/'
-  doi.org: 'https://doi.org/'
-  doai.io: 'https://dissem.in/'
-  sci-hub.se: 'https://sci-hub.se/'
-  sci-hub.st: 'https://sci-hub.st/'
-  sci-hub.ru: 'https://sci-hub.ru/'
+  oadoi.org: "https://oadoi.org/"
+  doi.org: "https://doi.org/"
+  doai.io: "https://dissem.in/"
+  sci-hub.se: "https://sci-hub.se/"
+  sci-hub.st: "https://sci-hub.st/"
+  sci-hub.ru: "https://sci-hub.ru/"
 
-default_doi_resolver: 'oadoi.org'
+default_doi_resolver: "oadoi.org"
