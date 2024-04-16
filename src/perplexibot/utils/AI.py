@@ -1,10 +1,12 @@
 # STL
-import asyncio
 import json
+import logging
 
-import aiohttp
 # PDM
+import aiohttp
 import requests
+
+LOG = logging.getLogger(__name__)
 
 
 async def call_search(prompt: str) -> dict:
@@ -48,7 +50,6 @@ def call_research(prompt: str):
     total_content = ""
     for chunk in data_chunks:
         if chunk:
-            print(f"Chunk: {chunk}")
             clean_json = chunk.replace("data: ", "")
             try:
                 if clean_json:
@@ -57,6 +58,6 @@ def call_research(prompt: str):
                     if token:
                         total_content += token
             except json.JSONDecodeError as e:
-                print(f"Failed to decode JSON: {e} - Chunk: {clean_json}")
+                LOG.debug(f"Failed to decode JSON: {e} - Chunk: {clean_json}")
 
     return total_content

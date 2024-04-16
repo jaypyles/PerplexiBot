@@ -18,3 +18,32 @@ license = {text = "MIT"}
 
 [tool.pdm]
 distribution = false
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+
+[tool.pyright]
+include = ["./src/perplexibot"]
+exclude = ["**/node_modules", "**/__pycache__"]
+ignore = []
+defineConstant = { DEBUG = true }
+stubPath = ""
+
+reportMissingImports = true
+reportMissingTypeStubs = false
+
+pythonVersion = "3.9"
+pythonPlatform = "Linux"
+
+
+[tool.isort]
+length_sort = "1"
+profile = "black"
+sections = "STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+import_heading_stdlib = "STL"
+import_heading_thirdparty = "PDM"
+import_heading_firstparty = "LOCAL"
+import_heading_localfolder = "LOCAL"
