@@ -15,7 +15,7 @@ LOG = logging.getLogger()
 
 # LOAD ENV
 load_dotenv()
-token = os.getenv("DEV_TOKEN")
+token = os.getenv("TOKEN")
 
 intents = discord.Intents.default()
 intents.messages = True
