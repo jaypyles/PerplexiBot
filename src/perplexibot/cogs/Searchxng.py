@@ -37,9 +37,10 @@ class SearchCommands(commands.Cog):
             await ctx.respond("\n".join(form_response))
 
     @search_xng.command(name="research", description="Search Anything.")
-    async def research(self, ctx, message_content: str):
+    @discord.option("content", str, description="Content you want to search.")
+    async def research(self, ctx, content: str):
         await ctx.respond("Researching...", ephemeral=True)
-        response = call_research(message_content)
+        response = call_research(content)
         try:
             await ctx.respond(response)
         except discord.DiscordException as e:
