@@ -1,6 +1,6 @@
 # PerplexiBot
 
-An open-source, self-hosted, Discord bot, built to allow users to use GPT 3.5 Web alongside SearXNG.
+An open-source, self-hosted, Discord bot, built to allow users to use GPT 3.5 Web/self-hosted Ollama models, alongside SearXNG.
 Powered by https://github.com/jaypyles/FreeAskInternet-API.
 
 Based on https://perplexity.ai
