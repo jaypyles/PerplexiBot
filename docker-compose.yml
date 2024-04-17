@@ -2,6 +2,8 @@ version: "3"
 services:
   perplexibot:
     container_name: perplexibot
+    volumes:
+      - ./.env:/app/.env
     build:
       context: "./"
     networks:
