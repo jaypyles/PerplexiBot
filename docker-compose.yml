@@ -3,6 +3,8 @@ services:
   perplexibot:
     image: jpyles0524/perplexibot:latest
     container_name: perplexibot
+    environment:
+      - TOKEN=${TOKEN}
     build:
       context: "./"
     networks:
