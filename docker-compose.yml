@@ -1,6 +1,7 @@
 version: "3"
 services:
   perplexibot:
+    image: jpyles0524/perplexibot:latest
     container_name: perplexibot
     volumes:
       - ./.env:/app/.env
