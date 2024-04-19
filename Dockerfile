@@ -10,6 +10,7 @@ WORKDIR /app
 # Copy the bot project files to the container
 COPY pyproject.toml /app/pyproject.toml
 COPY pdm.lock /app/pdm.lock
+COPY .env /app/.env
 COPY ./src/perplexibot /app/perplexibot
 
 # Install bot dependencies
