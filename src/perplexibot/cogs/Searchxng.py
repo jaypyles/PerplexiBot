@@ -1,9 +1,11 @@
 # STL
 import logging
+import textwrap
 
 # PDM
 import discord
 from discord.ext import commands
+from meta_ai_api import MetaAI
 
 # LOCAL
 from perplexibot.utils.AI import call_search, call_research
@@ -43,6 +45,36 @@ class SearchCommands(commands.Cog):
         response = call_research(content)
         try:
             await ctx.respond(response)
+        except discord.DiscordException as e:
+            LOG.error(f"Response was too long (over 2000 tokens): {e}")
+            await ctx.respond(
+                "Response was too long (over 2000 tokens). Try again.", ephemeral=True
+            )
+
+    @search_xng.command(name="meta-search", description="Search using Meta AI")
+    @discord.option("content", str, description="Content you want to search.")
+    async def meta_search(self, ctx, content: str):
+        LOG.debug(f"Recieved ask: {content}")
+        meta_ai = MetaAI()
+        await ctx.respond("Searching...", ephemeral=True)
+        response = meta_ai.prompt(message=content, attempts=3)
+
+        message = response["message"]
+        sources = response["sources"]
+        links = "\n".join([source["link"] for source in sources])
+
+        LOG.debug(f"Generated Response: {message}")
+
+        bot_response = (
+            f"Prompt: {content.strip()}\n"
+            "-----------------\n"
+            f"{message.strip()}\n\n"
+            "Citations\n"
+            f"{links.strip()}\n"
+        )
+
+        try:
+            await ctx.respond(bot_response)
         except discord.DiscordException as e:
             LOG.error(f"Response was too long (over 2000 tokens): {e}")
             await ctx.respond(

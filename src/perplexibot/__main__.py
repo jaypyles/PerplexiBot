@@ -10,7 +10,7 @@ from discord.ext import commands
 # LOCAL
 from perplexibot.cogs.Searchxng import SearchCommands
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 LOG = logging.getLogger()
 
 
