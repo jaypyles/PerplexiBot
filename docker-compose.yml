@@ -2,6 +2,7 @@ services:
   perplexibot:
     image: jpyles0524/perplexibot:latest
     container_name: perplexibot
+    env_file: ./.env
     environment:
       - TOKEN=${TOKEN}
     build:
