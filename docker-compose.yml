@@ -1,4 +1,3 @@
-version: "3"
 services:
   perplexibot:
     image: jpyles0524/perplexibot:latest
@@ -13,14 +12,8 @@ services:
     image: jpyles0524/freeaskinternetapi:latest
     container_name: searchbackend
     depends_on:
-      - llm-freegpt35
+      - searxng
     restart: on-failure
-    networks:
-      - search
-  llm-freegpt35:
-    container_name: llm-freegpt35
-    image: missuo/freegpt35:latest
-    restart: always
     networks:
       - search
   searxng:

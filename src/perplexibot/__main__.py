@@ -13,9 +13,9 @@ from perplexibot.cogs.Searchxng import SearchCommands
 logging.basicConfig(level=logging.DEBUG)
 LOG = logging.getLogger()
 
-
 # LOAD ENV
-load_dotenv()
+
+_ = load_dotenv()
 token = os.getenv("TOKEN")
 
 intents = discord.Intents.default()

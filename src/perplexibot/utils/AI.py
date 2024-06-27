@@ -7,6 +7,7 @@ import logging
 import aiohttp
 import requests
 
+
 LOG = logging.getLogger(__name__)
 
 MODEL = os.getenv("GPT_MODEL", "gpt3.5")

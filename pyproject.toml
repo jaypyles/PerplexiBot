@@ -2,9 +2,7 @@
 name = "PerplexiBot"
 version = "0.1.1"
 description = "Python based Discord Bot built to research the web with AI."
-authors = [
-    {name = "Jayden Pyles", email = "jpylesbusiness@gmail.com"},
-]
+authors = [{ name = "Jayden Pyles", email = "jpylesbusiness@gmail.com" }]
 dependencies = [
     "py-cord>=2.4.1",
     "python-dotenv>=1.0.1",
@@ -14,11 +12,14 @@ dependencies = [
 ]
 requires-python = ">=3.10"
 readme = "README.md"
-license = {text = "MIT"}
+license = { text = "MIT" }
 
 
 [tool.pdm]
 distribution = false
+
+[tool.pdm.dev-dependencies]
+dev = ["pytest~=6.2", "black", "isort~=5.9", "pytest-asyncio>=0.18.3"]
 
 [tool.pytest.ini_options]
 log_cli = true
@@ -27,14 +28,17 @@ log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(linen
 log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 
 [tool.pyright]
+venvPath = "."
+venv = ".venv"
+
 include = ["./src/perplexibot"]
 exclude = ["**/node_modules", "**/__pycache__"]
 ignore = []
 defineConstant = { DEBUG = true }
 stubPath = ""
-
 reportMissingImports = true
 reportMissingTypeStubs = false
+reportUnusedImport = true
 
 pythonVersion = "3.9"
 pythonPlatform = "Linux"
