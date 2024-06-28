@@ -1,6 +1,5 @@
 # STL
 import logging
-import textwrap
 
 # PDM
 import discord
@@ -42,7 +41,15 @@ class SearchCommands(commands.Cog):
     @discord.option("content", str, description="Content you want to search.")
     async def research(self, ctx, content: str):
         await ctx.respond("Researching...", ephemeral=True)
-        response = call_research(content)
+
+        attempts = 1
+
+        while attempts <= 5:
+            response = call_research(content)
+            attempts += 1
+
+            if len(response) < 1999:
+                break
         try:
             await ctx.respond(response)
         except discord.DiscordException as e:

@@ -50,12 +50,13 @@ def call_research(prompt: str):
         body["ollama_model"] = OLLAMA_MODEL
 
     url = "http://searchbackend:8000/v1/chat/completions"
+
     total_content = ""
+
     response = requests.post(url, json=body)
     response_text = response.text
     data_chunks = response_text.split("\n")
 
-    total_content = ""
     for chunk in data_chunks:
         if chunk:
             clean_json = chunk.replace("data: ", "")
