@@ -1,0 +1,8 @@
+services:
+  backend:
+    build:
+      context: "../FreeAskInternet-API"
+    ports:
+      - 8000:8000
+    volumes:
+      - "../FreeAskInternet-API/src/freeaskinternet:/app/freeaskinternet"

@@ -20,11 +20,12 @@ class SearchCommands(commands.Cog):
     search_xng = discord.SlashCommandGroup("search")
 
     @search_xng.command(name="search", description="Search Anything.")
-    async def search(self, ctx, message_content: str):
-        await ctx.respond("Searching...", ephemeral=True)
+    async def search(self, ctx: discord.context.ApplicationContext, message_content: str):
+        _ = await ctx.respond("Searching...", ephemeral=True)
         response = await call_search(message_content)
 
         data = response.get("data")
+
         if data:
             form_response = []
             for result in data[:1]:
